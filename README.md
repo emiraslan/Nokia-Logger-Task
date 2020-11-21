@@ -32,6 +32,8 @@ Required features:
 
 ## How To Use
 
+In order to use the library a `Logger` instance should be created. It requires `Configuration` instance in its constructor and it can be build by using `Builder` pattern approach.
+Logger instance has a `HashMap` property which stores all the logs for `getErrors()` and `clear(String)` methods. I am fully aware of the fact that it will take more space in memory as the number of logs increase. However there are certain cases that hasn't been mentioned on the task statement specifically and there had to be made a decision on how to solve those cases.
 
 ```java
      // Initialize and configure Logger
