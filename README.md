@@ -19,6 +19,7 @@
                         .setLogLevel(LogLevel.DEBUG) // default LogLevel.DEBUG
                         .setLogRotationLineCount(15) // default 10
                         .setFileNamePattern("log{0}.txt") // default log{0}.txt
+                        .setFilePath(System.getProperty("user.dir") + "/res") // default System.getProperty("user.dir")
                         .finishFileConfiguration() // returns Configuration.Builder
                     .get() // returns Configuration instance
         );
