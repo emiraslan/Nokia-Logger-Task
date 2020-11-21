@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 public class Logger {
     private final HashMap<String, LogEntry> logEntries;
-    private Configuration configuration;
+    private final Configuration configuration;
 
     public Logger(Configuration configuration) {
         logEntries = new HashMap<>();
@@ -17,6 +17,7 @@ public class Logger {
     public void log(String message, LogLevel level, Exception source) {
         LogEntry newLogEntry = new LogEntry(message, level, source);
         logEntries.put(newLogEntry.getID(), newLogEntry);
+
         configuration.recordLogEntry(newLogEntry);
     }
 

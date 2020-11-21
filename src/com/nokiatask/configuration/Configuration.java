@@ -1,7 +1,6 @@
 package com.nokiatask.configuration;
 
 import com.nokiatask.LogEntry;
-import com.nokiatask.LogLevel;
 
 public class Configuration {
     private ConsoleConfiguration consoleConfiguration;
