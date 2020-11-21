@@ -107,6 +107,17 @@ public class FileConfiguration extends BaseLoggerConfiguration {
             return this;
         }
 
+
+        public FileConfiguration.FileBuilder setFileNamePattern(String fileNamePattern){
+            fileConfiguration.fileNamePattern = fileNamePattern;
+            return this;
+        }
+
+        public FileConfiguration.FileBuilder setLogRotationLineCount(int logRotationLineCount){
+            fileConfiguration.logRotationLineCount = logRotationLineCount;
+            return this;
+        }
+
         public Configuration.Builder finishFileConfiguration() {
             this.builder.setFileConfiguration();
             return this.builder;
