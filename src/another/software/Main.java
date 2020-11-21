@@ -6,7 +6,6 @@ import com.nokiatask.configuration.Configuration;
 
 public class Main {
     public static void main(String[] args) {
-
         // Initialize and configure Logger
         Logger logger = new Logger(
                 new Configuration.Builder() // Configuration with Builder pattern
@@ -22,6 +21,7 @@ public class Main {
                         .setLogLevel(LogLevel.DEBUG) // default LogLevel.DEBUG
                         .setLogRotationLineCount(15) // default 10
                         .setFileNamePattern("log{0}.txt") // default log{0}.txt
+                        .setFilePath(System.getProperty("user.dir") + "/res") // default System.getProperty("user.dir")
                         .finishFileConfiguration() // returns Configuration.Builder
                     .get() // returns Configuration instance
         );

@@ -12,11 +12,13 @@ import java.util.stream.Stream;
 public class FileConfiguration extends BaseLoggerConfiguration {
     private String fileNamePattern;
     private int logRotationLineCount;
+    private String filePath;
 
     private FileConfiguration() {
         super();
         this.fileNamePattern = "log{0}.txt";
         this.logRotationLineCount = 10;
+        this.filePath = System.getProperty("user.dir");
     }
 
     protected String getFormattedFileName(String fileNumber){
@@ -24,7 +26,7 @@ public class FileConfiguration extends BaseLoggerConfiguration {
     }
 
     private void createAndFillFile(String content) throws Exception {
-        File file = new File(System.getProperty("user.dir") + "/res/log.txt");
+        File file = new File(this.filePath + "/log.txt");
         BufferedWriter writer = new BufferedWriter(new FileWriter(file, true));
         writer.write(content);
         writer.newLine();
@@ -33,7 +35,7 @@ public class FileConfiguration extends BaseLoggerConfiguration {
 
     private int getTheNumberOfLinesInCurrentLog() throws Exception{
         try {
-            File file = new File(System.getProperty("user.dir") + "/res/log.txt");
+            File file = new File(this.filePath + "/log.txt");
             BufferedReader reader = new BufferedReader(new FileReader(file));
             int lines = 0;
             while (reader.readLine() != null) lines++;
@@ -47,7 +49,7 @@ public class FileConfiguration extends BaseLoggerConfiguration {
 
     private boolean rotateToNewLogFile() throws Exception {
         long count = 0;
-        try (Stream<Path> files = Files.list(Paths.get(System.getProperty("user.dir") + "/res/"))) {
+        try (Stream<Path> files = Files.list(Paths.get(this.filePath + "/"))) {
             count = files.count();
         }catch (Exception e) {
             System.out.println("Failed: " + e.getMessage());
@@ -55,11 +57,11 @@ public class FileConfiguration extends BaseLoggerConfiguration {
 
         String newName = getFormattedFileName(String.valueOf(count));
 
-        File oldFile = new File(System.getProperty("user.dir") + "/res/log.txt");
-        File newFile = new File(System.getProperty("user.dir") + "/res/" + newName);
+        File oldFile = new File(this.filePath + "/log.txt");
+        File newFile = new File(this.filePath + "/" + newName);
 
-//        if (oldFile.exists())
-//            System.out.println("File already exists");
+        // if (oldFile.exists())
+            // System.out.println("File already exists");
 
         return oldFile.renameTo(newFile);
     }
@@ -107,6 +109,10 @@ public class FileConfiguration extends BaseLoggerConfiguration {
             return this;
         }
 
+        public FileConfiguration.FileBuilder setFilePath(String filePath){
+            fileConfiguration.filePath = filePath;
+            return this;
+        }
 
         public FileConfiguration.FileBuilder setFileNamePattern(String fileNamePattern){
             fileConfiguration.fileNamePattern = fileNamePattern;
